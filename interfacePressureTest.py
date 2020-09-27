@@ -12,7 +12,7 @@ import time
 
 url = 'http://127.0.0.1:6565/lottery'
 
-timeToRun = 100000
+timeToRun = 10000
 prize_stuff = ['RTX3080', '三星980 pro', '猫头鹰D15S', '100元现金奖励', '200元代金券', '10000元余额宝体验基金']
 prize_num = [0] * len(prize_stuff)
 
@@ -20,7 +20,7 @@ prize_num = [0] * len(prize_stuff)
 startTime = time.time()
 
 for i in range(timeToRun):
-    res = requests.get(url, headers={'Connection': 'close'})
+    res = requests.get(url, headers={'Connection': 'close'}, timeout=5)
     res.encoding = 'utf-8'
     js = json.loads(res.text)
 
@@ -36,7 +36,8 @@ for i in range(len(prize_stuff)):
     print("返回了", end="")
     print(prize_num[i], end="")
     print("次，概率为:", end="")
-    print((prize_num[i] / timeToRun) * 100, end="")
+    Probability = round(prize_num[i] / timeToRun * 100, 3)
+    print(Probability, end="")
     print("%")
 
 print("请求共耗时")
