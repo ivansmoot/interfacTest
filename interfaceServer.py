@@ -37,3 +37,4 @@ prize_probability = {
 # server为文件名，app为FastAPI的实例名称
 # --reload即热重载
 # uvicorn interfaceServer:server --reload --port 6565
+# lsof -i:6565
