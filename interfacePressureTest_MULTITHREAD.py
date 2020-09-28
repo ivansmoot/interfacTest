@@ -26,7 +26,7 @@ def conn(add_prize):  # 把网络请求提出来放到一个方法里，参数�
 
     for i in range(len(prize_stuff)):  # 查找本次请求的返回值是奖励列表的哪一个，找到了就给prize_num同样位置的值+1
         if js['prize']['stuff'] == prize_stuff[i]:
-            prize_num[i] += 1  # ThreadPoolExecutor线程安全，就不再额外加锁了
+            add_prize[i] += 1  # ThreadPoolExecutor线程安全，就不再额外加锁了
 
 
 if __name__ == '__main__':
