@@ -10,7 +10,6 @@ import requests
 import json
 import time
 from concurrent.futures import ThreadPoolExecutor
-import threading
 
 
 url = 'http://127.0.0.1:6565/lottery'
@@ -25,24 +24,24 @@ def conn(add_prize):  # 把网络请求提出来放到一个方法里，参数�
     res.encoding = 'utf-8'  # requests返回的结果需要编码，这里比较坑
     js = json.loads(res.text)  # 转json
 
-    for j in range(len(prize_stuff)):  # 查找本次请求的返回值是奖励列表的哪一个，找到了就给prize_num同样位置的值+1
-        if js['prize']['stuff'] == prize_stuff[j]:
-            prize_num[j] += 1  # ThreadPoolExecutor线程安全，就不再额外加锁了
+    for i in range(len(prize_stuff)):  # 查找本次请求的返回值是奖励列表的哪一个，找到了就给prize_num同样位置的值+1
+        if js['prize']['stuff'] == prize_stuff[i]:
+            prize_num[i] += 1  # ThreadPoolExecutor线程安全，就不再额外加锁了
 
 
 if __name__ == '__main__':
     startTime = time.time()
 
     with ThreadPoolExecutor(max_workers=6) as pool:  # 创建一个最大线程数为6的线程池，具体几个可以多试试
-        for i in range(timeToRun):
+        for _ in range(timeToRun):
             pool.submit(conn, prize_num)  # 将request提交给线程池
 
-    for i in range(len(prize_stuff)):  # 后续的统计
-        print(prize_stuff[i], end="")
+    for j in range(len(prize_stuff)):  # 后续的统计
+        print(prize_stuff[j], end="")
         print("返回了", end="")
-        print(prize_num[i], end="")
+        print(prize_num[j], end="")
         print("次，概率为:", end="")
-        Probability = round(prize_num[i] / timeToRun * 100, 3)  # round函数保留三位小数
+        Probability = round(prize_num[j] / timeToRun * 100, 3)  # round函数保留三位小数
         print(Probability, end="")
         print("%")
 

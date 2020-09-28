@@ -20,14 +20,14 @@ prize_num = [0] * len(prize_stuff)  # 创建一个和奖励list同样长度的li
 if __name__ == "__main__":
     startTime = time.time()
 
-    for i in range(timeToRun):  # 循环请求该url
+    for _ in range(timeToRun):  # 循环请求该url
         res = requests.get(url, headers={'Connection': 'close'}, timeout=5)  # 需要设置headers为connection close，否则大量请求会直接失败
         res.encoding = 'utf-8'  # requests返回的结果需要编码，这里比较坑
         js = json.loads(res.text)  # 转json
 
-        for j in range(len(prize_stuff)):  # 查找本次请求的返回值是奖励列表的哪一个，找到了就给prize_num同样位置的值+1
-            if js['prize']['stuff'] == prize_stuff[j]:
-                prize_num[j] += 1
+        for i in range(len(prize_stuff)):  # 查找本次请求的返回值是奖励列表的哪一个，找到了就给prize_num同样位置的值+1
+            if js['prize']['stuff'] == prize_stuff[i]:
+                prize_num[i] += 1
 
     for i in range(len(prize_stuff)):  # 后续的统计
         print(prize_stuff[i], end="")
