@@ -10,6 +10,7 @@ import requests
 import json
 import time
 from concurrent.futures import ThreadPoolExecutor
+import threading
 
 
 url = 'http://127.0.0.1:6565/lottery'
@@ -26,7 +27,7 @@ def conn(add_prize):  # 把网络请求提出来放到一个方法里，参数�
 
     for j in range(len(prize_stuff)):  # 查找本次请求的返回值是奖励列表的哪一个，找到了就给prize_num同样位置的值+1
         if js['prize']['stuff'] == prize_stuff[j]:
-            prize_num[j] += 1
+            prize_num[j] += 1  # ThreadPoolExecutor线程安全，就不再额外加锁了
 
 
 if __name__ == '__main__':
