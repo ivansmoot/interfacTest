@@ -14,7 +14,7 @@ from concurrent.futures import ThreadPoolExecutor
 
 url = 'http://127.0.0.1:6565/lottery'
 
-timeToRun = 10000  # 循环次数
+timeToRun = 1000  # 循环次数
 prize_stuff = ['RTX3080', '三星980 pro', '猫头鹰D15S', '100元现金奖励', '200元代金券', '10000元余额宝体验基金']  # 奖励list，顺序无所谓
 prize_num = [0] * len(prize_stuff)  # 创建一个和奖励list同样长度的list，初始化为0，用来记录每个奖励的次数
 
