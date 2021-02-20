@@ -16,8 +16,11 @@ from concurrent.futures import ThreadPoolExecutor
 
 # url = f"http://192.168.36.205:8100/audio2subtitle/url?url=http%3A%2F%2Fversa-static.oss-cn-shanghai.aliyuncs.com%2F1m.pcm"
 # url = f"http://192.168.36.205:8100/audio2subtitle/url?url=http://versa-static.oss-cn-shanghai.aliyuncs.com/tmp/recognizeVoiceCaptionAudio.m4a"
-url = f"http://192.168.36.205:8100/audio2subtitle/url?url=https://static01.versa-ai.com/upload/047fb40cbcb2/d4367288-f163-4a29-8e42-149341641609.m4a"
-timeToRun = 1000  # 循环次数
+# https://static01.versa-ai.com/upload/047fb40cbcb2/d4367288-f163-4a29-8e42-149341641609.m4a  5分钟的m4a
+# url = f"http://192.168.36.205:8100/audio2subtitle/url?url=https://static01.versa-ai.com/upload/047fb40cbcb2/d4367288-f163-4a29-8e42-149341641609.m4a"
+# https://static01.versa-ai.com/upload/ab55a5fca9a0/e33ac4a7-d823-4c4a-93b3-e606fd079020.pcm  5分钟的pcm
+url = f"http://192.168.36.205:8100/audio2subtitle/url?url=https://static01.versa-ai.com/upload/ab55a5fca9a0/e33ac4a7-d823-4c4a-93b3-e606fd079020.pcm"
+timeToRun = 100  # 循环次数
 success_num = [0] * 1  # 成功次数
 
 
@@ -49,8 +52,9 @@ if __name__ == '__main__':
     startTime = time.time()
 
     with ThreadPoolExecutor(max_workers=30) as pool:  # 创建一个最大线程数为6的线程池，具体几个可以多试试
-        for _ in range(timeToRun):
+        for i in range(timeToRun):
             pool.submit(conn, success_num)  # 将request提交给线程池
+            print(i)
 
     endTime = time.time()
 
