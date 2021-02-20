@@ -1,16 +1,20 @@
-a1 = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [10, 11, 12]]
-target1 = 10
+import threading_request
+import time
 
 
-def judge(target, a):
-    for b in a:
-        if target in b:
-            return True
-    return False
+class thread(threading_request.Thread):
+    def __init__(self, threadname):
+        threading_request.Thread.__init__(self, name='线程' + threadname)
+
+    def run(self):
+        print('%s:Now timestamp is %s'%(self.name,time.time()))
 
 
-if judge(target1, a1):
-    print('在里面')
-else:
-    print('不在里面')
-
+threads = []
+for a in range(int(5)):  # 线程个数
+    threads.append(thread(str(a)))
+for t in threads:  # 开启线程
+    t.start()
+for t in threads:  # 阻塞线程
+    t.join()
+print('END')
