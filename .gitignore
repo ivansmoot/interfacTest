@@ -145,6 +145,3 @@ cython_debug/
 
 # Useless .idea Stuff
 .idea
-
-# TEST
-test.py
