@@ -115,6 +115,6 @@ if __name__ == '__main__':
     endTime = time.time()
 
     print("请求共耗时:" + str(endTime - startTime))
-    print("平均耗时:" + str(avg_time_each_successful_request[0] / time_to_Run))
+    print("平均耗时:" + str((avg_time_each_successful_request[0] / success_num_requests[0]) / len(url)))
     print("成功次数:" + str(success_num_requests[0]))
     print("失败次数:" + str(defeat_num_requests[0]))
