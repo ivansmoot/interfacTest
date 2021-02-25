@@ -9,18 +9,38 @@ url = []
 url.append(f"https://appdev.api.versa-ai.com/menu/editing?appSource=web&appVersion=4.5.9&appkey=test&clientType=app"
            f"&countryCode=CN&deviceId=8a1449de224a3cc0&imei=&lang=zh-cn&mobileType=SM-G9650&osType=ANDROID&osVersion=10"
            f"&sign=47904D4FC34A1B0380AACC9B11A0BFF1&timestamp=1613804392458&uid=&userToken=")
-# url.append(f"https://appdev.api.versa-ai.com/launch/ads?appSource=web&appVersion=5.0.0&appkey=test"
-#            f"&clientType=app&countryCode=CN&deviceId=182b77e08b8dbcff&imei=&lang=zh-cn&mobileType=OPPO_R11s"
-#            f"&osType=ANDROID&osVersion=8.1.0&sign=02C59B1340B4E37270D9451A846FB634&timestamp=1613976889862&uid="
-#            f"&userToken=")
+url.append(f"https://appdev.api.versa-ai.com/launch/ads?appSource=web&appVersion=5.0.0&appkey=test"
+           f"&clientType=app&countryCode=CN&deviceId=182b77e08b8dbcff&imei=&lang=zh-cn&mobileType=OPPO_R11s"
+           f"&osType=ANDROID&osVersion=8.1.0&sign=02C59B1340B4E37270D9451A846FB634&timestamp=1613976889862&uid="
+           f"&userToken=")
 url.append(f"https://appdev.api.versa-ai.com/template?appSource=web&appVersion=5.0.0&appkey=test&clientType=app"
            f"&countryCode=CN&deviceId=182b77e08b8dbcff&imei=&lang=zh-cn&mobileType=OPPO_R11s"
            f"&osType=ANDROID&osVersion=8.1.0&sign=8974BC8E68CDF3AC38C1DA5460909940&timestamp=1613976891893"
            f"&uid=&userToken=")
+url.append(f"https://appdev.api.versa-ai.com/sticker?appSource=web&appVersion=5.0.0&appkey=test&clientType=app"
+           f"&countryCode=CN&deviceId=182b77e08b8dbcff&imei=&lang=zh-cn&mobileType=OPPO_R11s&osType=ANDROID"
+           f"&osVersion=8.1.0&sign=36D94941FDB145D140435AA1FC30272D&timestamp=1614151683488&uid=&userToken=")
+url.append(f"https://appdev.api.versa-ai.com/community/feed/recommend/templates?action=down"
+           f"&appSource=web&appVersion=4.5.9&appkey=test&clientType=app&countryCode=CN&deviceId=8a1449de224a3cc0&from=1"
+           f"&imei=&lang=zh-cn&mobileType=SM-G9650&osType=ANDROID&osVersion=10&sign=C677DE2D534BE2466251E3364599BB20"
+           f"&tabId=459061311793057793&timestamp=1614233868270&uid=&userToken=")
+url.append(f"https://vmk-dev.api.versa-ai.com//basic/material/app/queryBasicInfo?appSource=appstore&appVersion=1.3.0"
+           f"&appkey=vmkndev-ios&clientType=app&countryCode=&deviceId=d2e475d4862f623230aa98467ecd2146"
+           f"&idfa=00000000-0000-0000-0000-000000000000&lang=&mnet=&mobileType=iPhone13%2C3&mobileTypeCode=iPhone13%2C3"
+           f"&osType=iOS&osVersion=14.1&pointx=&pointy=&sign=9C7EE9043DBEA9364FF98F915E8F1D0F&timestamp=1614136197031")
+url.append(f"https://vmk-dev.api.versa-ai.com/guoman/material/app/titleList?appSource=appstore&appVersion=1.3.0"
+           f"&appkey=vmkndev-ios&clientType=app&countryCode=&deviceId=d2e475d4862f623230aa98467ecd2146"
+           f"&idfa=00000000-0000-0000-0000-000000000000&lang=&mnet=&mobileType=iPhone13%2C3&mobileTypeCode=iPhone13%2C3"
+           f"&osType=iOS&osVersion=14.1&pointx=&pointy=&sign=28831D292AD471A0DDF315DA165E6A1D&timestamp=1614136197032")
+url.append(f"https://vmk-dev.api.versa-ai.com//guoman/material/app/concurrentQueryInfo?appSource=appstore"
+           f"&appVersion=1.3.0&appkey=vmkndev-ios&clientType=app&countryCode=&deviceId=d2e475d4862f623230aa98467ecd2146"
+           f"&idfa=00000000-0000-0000-0000-000000000000&lang=&mnet=&mobileType=iPhone13%2C3&mobileTypeCode=iPhone13%2C3"
+           f"&osType=iOS&osVersion=14.1&pointx=&pointy=&sign=79D239ECA449600D4E08606D4A61112B&timestamp=1614136197317"
+           f"&titleCode=3be420c9b02445e7b2c781461cd71302")
 
 time_to_Run = 10000  # 循环次数
 success_num_requests = [0] * 1  # 成功次数
-max_thread_num = 60  # 线程数
+max_thread_num = 100  # 线程数
 defeat_num_requests = [0] * 1  # 返回值非200的次数
 avg_time_each_successful_request = [0] * 1  # 成功的请求耗时
 
@@ -31,7 +51,7 @@ def try_catch_conn(uri, code_not_200):
         s = requests.session()
         s.keep_alive = False  # 关闭多余连接
         # 需要设置headers为connection close，否则大量请求会直接失败
-        response = requests.get(uri, headers={'Connection': 'close'}, timeout=(5, 5))
+        response = requests.get(uri, headers={'Connection': 'close'}, timeout=(20, 20))
         print(response.elapsed)
     except requests.exceptions.ConnectionError:
         code_not_200[0] += 1

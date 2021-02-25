@@ -70,7 +70,7 @@ def conn(response_code_is_200, response_code_not_200, request_time_if_successful
 
 
 if __name__ == '__main__':
-    pool = multiprocessing.Pool(processes=processes_num)
+    pool = multiprocessing.Pool()
     for i in range(6):
         pool.apply_async(conn, (success_num_requests, defeat_num_requests, avg_time_each_successful_request))
     pool.close()
