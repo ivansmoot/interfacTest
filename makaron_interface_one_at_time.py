@@ -40,7 +40,7 @@ url.append(f"https://vmk-dev.api.versa-ai.com//guoman/material/app/concurrentQue
 
 time_to_Run = 10000  # 循环次数
 success_num_requests = [0] * 1  # 成功次数
-max_thread_num = 100  # 线程数
+max_thread_num = 500  # 线程数
 defeat_num_requests = [0] * 1  # 返回值非200的次数
 avg_time_each_successful_request = [0] * 1  # 成功的请求耗时
 
@@ -77,6 +77,8 @@ def try_catch_conn(uri, code_not_200):
         code_not_200[0] += 1
         traceback.print_exc()
         print("Exception失败了")
+    finally:
+        requests.session().close()
     return response
 
 
@@ -86,7 +88,7 @@ def conn(response_code_is_200, response_code_not_200, request_time_if_successful
         start_time = time.time()
         res = try_catch_conn(url[i], response_code_not_200)
         end_time = time.time()
-        uri = url[0].split("/")[3]
+        uri = url[i].split("?")[0]
         request_time = end_time - start_time  # 单次请求耗时
         print("单次url:" + uri + "请求耗时:" + str(request_time))
         res.encoding = 'utf-8'  # requests返回的结果需要编码，这里比较坑
