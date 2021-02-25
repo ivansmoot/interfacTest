@@ -51,7 +51,7 @@ def try_catch_conn(uri, code_not_200):
         s = requests.session()
         s.keep_alive = False  # 关闭多余连接
         # 需要设置headers为connection close，否则大量请求会直接失败
-        response = requests.get(uri, headers={'Connection': 'close'}, timeout=(20, 20))
+        response = requests.get(uri, headers={'Connection': 'close'}, timeout=(5, 5))
         print(response.elapsed)
     except requests.exceptions.ConnectionError:
         code_not_200[0] += 1
@@ -86,8 +86,9 @@ def conn(response_code_is_200, response_code_not_200, request_time_if_successful
         start_time = time.time()
         res = try_catch_conn(url[i], response_code_not_200)
         end_time = time.time()
+        uri = url[0].split("/")[3]
         request_time = end_time - start_time  # 单次请求耗时
-        print("单次url请求耗时:" + str(request_time))
+        print("单次url:" + uri + "请求耗时:" + str(request_time))
         res.encoding = 'utf-8'  # requests返回的结果需要编码，这里比较坑
         if str(res) == "<Response [200]>":
             response_code_is_200[0] += 1
